@@ -1,7 +1,7 @@
 from utils.utils import load_xml
 
 
-def parse_xml(path: str) -> dict:
+def parse_xml(path: str) -> tuple[dict, list]:
     xml_tree = load_xml(path)
     root = xml_tree.getroot()
     classes = {}
@@ -18,7 +18,7 @@ def parse_xml(path: str) -> dict:
 
             classes[class_name] = {
                 "attributes": attributes,
-                "documentation": el.get("documentation"),
+                "documentation": el.get("documentation", ""),
                 "isRoot": el.get("isRoot"),
             }
         elif el.tag == "Aggregation":
