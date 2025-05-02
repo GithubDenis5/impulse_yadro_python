@@ -1,8 +1,9 @@
 from xml.etree.ElementTree import Element, SubElement, tostring
 import xml.dom.minidom as md
+import json
 
 
-def generate_config_xml(classes: dict, aggregations: list):
+def generate_config_xml(classes: dict, aggregations: list) -> str:
     root_name = next(name for name, data in classes.items() if data["isRoot"] == "true")
     root = Element(root_name)
 
@@ -26,3 +27,32 @@ def generate_config_xml(classes: dict, aggregations: list):
     formated_xml_string = md.parseString(bad_xml_string).toprettyxml(indent="\t")
 
     return formated_xml_string
+
+
+def generate_meta_json(classes: dict, aggregations: list) -> list:
+    meta = []
+
+    for name, data in classes.items():
+        parameters = [
+            {"name": att["name"], "type": att["type"]} for att in data["attributes"]
+        ]
+
+        for agg in aggregations:
+            if agg["target"] == name:
+                parameters.append(
+                    {
+                        "name": agg["source"],
+                        "type": "class",
+                    }
+                )
+
+        meta.append(
+            {
+                "class": name,
+                "documentation": data["documentation"],
+                "isRoot": data["isRoot"],
+                "parameters": parameters,
+            }
+        )
+
+    return meta

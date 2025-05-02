@@ -7,9 +7,9 @@ def load_json(path: str) -> json:
         return json.load(f)
 
 
-def save_json(path: str, data: json) -> None:
+def save_json(path: str, data) -> None:
     with open(path, "w") as f:
-        json.dump(data, f, indent=4)
+        json.dump(data, f, indent=4, ensure_ascii=False)
 
 
 def load_xml(path: str) -> ET:
