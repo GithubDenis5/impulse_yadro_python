@@ -1,4 +1,5 @@
 import json
+import xml.etree.ElementTree as ET
 
 
 def load_json(path: str) -> json:
@@ -9,3 +10,7 @@ def load_json(path: str) -> json:
 def save_json(path: str, data: json) -> None:
     with open(path, "w") as f:
         json.dump(data, f, indent=4)
+
+
+def load_xml(path: str) -> ET:
+    return ET.parse(path)
