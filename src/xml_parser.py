@@ -5,6 +5,7 @@ def parse_xml(path: str) -> dict:
     xml_tree = load_xml(path)
     root = xml_tree.getroot()
     classes = {}
+    aggregation = []
 
     for el in root:
         if el.tag == "Class":
@@ -20,5 +21,14 @@ def parse_xml(path: str) -> dict:
                 "documentation": el.get("documentation"),
                 "isRoot": el.get("isRoot"),
             }
+        elif el.tag == "Aggregation":
+            aggregation.append(
+                {
+                    "source": el.get("source"),
+                    "target": el.get("target"),
+                    "sourceMultiplicity": el.get("sourceMultiplicity"),
+                    "targetMultiplicity": el.get("targetMultiplicity"),
+                }
+            )
 
-    return classes
+    return classes, aggregation
