@@ -14,3 +14,8 @@ def save_json(path: str, data: json) -> None:
 
 def load_xml(path: str) -> ET:
     return ET.parse(path)
+
+
+def save_xml(path: str, data: str) -> None:
+    with open(path, "w") as f:
+        f.write(data)
