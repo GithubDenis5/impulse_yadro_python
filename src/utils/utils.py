@@ -19,3 +19,12 @@ def load_xml(path: str) -> ET:
 def save_xml(path: str, data: str) -> None:
     with open(path, "w") as f:
         f.write(data)
+
+
+def min_max_multiplicity(s: str) -> tuple[str, str]:
+    t = s.split("..")
+
+    if len(t) == 1:
+        return t[0], t[0]
+
+    return t[0], t[1]

@@ -1,6 +1,7 @@
 from xml.etree.ElementTree import Element, SubElement, tostring
 import xml.dom.minidom as md
-import json
+
+from utils.utils import min_max_multiplicity
 
 
 def generate_config_xml(classes: dict, aggregations: list) -> str:
@@ -19,8 +20,6 @@ def generate_config_xml(classes: dict, aggregations: list) -> str:
                 build_class_tree(child_element, child)
 
     build_class_tree(root, root_name)
-
-    # return tostring(root, "unicode", short_empty_elements=False)
 
     bad_xml_string = tostring(root, "unicode", short_empty_elements=False)
 
@@ -46,13 +45,23 @@ def generate_meta_json(classes: dict, aggregations: list) -> list:
                     }
                 )
 
-        meta.append(
-            {
-                "class": name,
-                "documentation": data["documentation"],
-                "isRoot": data["isRoot"],
-                "parameters": parameters,
-            }
-        )
+        class_meta = {
+            "class": name,
+            "documentation": data["documentation"],
+            "isRoot": data["isRoot"],
+        }
+
+        if data["isRoot"] != "true":
+            min_mult, max_mult = "", ""
+            for agg in aggregations:
+                if agg["source"] == name:
+                    min_mult, max_mult = min_max_multiplicity(agg["sourceMultiplicity"])
+
+            class_meta["max"] = max_mult
+            class_meta["min"] = min_mult
+
+        class_meta["parameters"] = parameters
+
+        meta.append(class_meta)
 
     return meta
