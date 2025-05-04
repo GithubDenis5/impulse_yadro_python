@@ -2,7 +2,7 @@ import json
 import xml.etree.ElementTree as ET
 
 
-def load_json(path: str) -> json:
+def load_json(path: str) -> dict:
     with open(path, "r") as f:
         return json.load(f)
 
@@ -12,7 +12,7 @@ def save_json(path: str, data) -> None:
         json.dump(data, f, indent=4, ensure_ascii=False)
 
 
-def load_xml(path: str) -> ET:
+def load_xml(path: str) -> ET.ElementTree:
     return ET.parse(path)
 
 

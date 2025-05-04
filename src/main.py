@@ -1,7 +1,7 @@
 from xml_parser import parse_xml
 from generators import generate_config_xml, generate_meta_json
 from utils.utils import save_xml, save_json, load_json
-from config_processor import calculate_delta
+from config_processor import calculate_delta, res_config_by_delta
 
 
 def main():
@@ -21,6 +21,10 @@ def main():
     delta = calculate_delta(config, patched_config)
 
     save_json("test_out/delta.json", delta)
+
+    res_patched_config = res_config_by_delta(config, delta)
+
+    save_json("test_out/res_patched_config.json", res_patched_config)
 
 
 if __name__ == "__main__":
