@@ -1,3 +1,3 @@
 # impulse_yadro_python
 
-Для запуска - `pyhon src/main.py`
+Для запуска - `python src/main.py`
