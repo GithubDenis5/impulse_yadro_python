@@ -12,19 +12,19 @@ def main():
     tree = generate_config_xml(classes, aggregations)
     meta = generate_meta_json(classes, aggregations)
 
-    save_xml("test_out/config.xml", tree)
-    save_json("test_out/meta.json", meta)
+    save_xml("out/config.xml", tree)
+    save_json("out/meta.json", meta)
 
     config = load_json("input/config.json")
     patched_config = load_json("input/patched_config.json")
 
     delta = calculate_delta(config, patched_config)
 
-    save_json("test_out/delta.json", delta)
+    save_json("out/delta.json", delta)
 
     res_patched_config = res_config_by_delta(config, delta)
 
-    save_json("test_out/res_patched_config.json", res_patched_config)
+    save_json("out/res_patched_config.json", res_patched_config)
 
 
 if __name__ == "__main__":

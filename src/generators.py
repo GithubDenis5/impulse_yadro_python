@@ -21,7 +21,7 @@ def generate_config_xml(classes: dict, aggregations: list) -> str:
 
     build_class_tree(root, root_name)
 
-    bad_xml_string = tostring(root, "unicode", short_empty_elements=False)
+    bad_xml_string = tostring(root, "unicode")
 
     formated_xml_string = md.parseString(bad_xml_string).toprettyxml(indent="\t")
 
