@@ -1,13 +1,13 @@
 from xml_parser import parse_xml
 from generators import generate_config_xml, generate_meta_json
-from utils.utils import save_xml, save_json, load_json
+from utils.utils import save_xml, save_json, load_json, load_xml
 from config_processor import calculate_delta, res_config_by_delta
 
 
 def main():
-    print("Init")
+    xml_tree = load_xml("input/impulse_test_input.xml")
 
-    classes, aggregations = parse_xml("input/impulse_test_input.xml")
+    classes, aggregations = parse_xml(xml_tree)
 
     tree = generate_config_xml(classes, aggregations)
     meta = generate_meta_json(classes, aggregations)

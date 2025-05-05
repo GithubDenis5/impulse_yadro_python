@@ -1,8 +1,7 @@
-from utils.utils import load_xml
+from xml.etree.ElementTree import ElementTree
 
 
-def parse_xml(path: str) -> tuple[dict, list]:
-    xml_tree = load_xml(path)
+def parse_xml(xml_tree: ElementTree) -> tuple[dict, list]:
     root = xml_tree.getroot()
     classes = {}
     aggregation = []
